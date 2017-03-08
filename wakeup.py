@@ -42,7 +42,7 @@ calendar_service.ProgrammaticLogin()
 #****           Main query                                                       ****#
 #************************************************************************************# 
 def FullTextQuery(calendar_service):
-    print 'Full text query for events on Primary Calendar: \'%s\'' % (q)
+    print ('Full text query for events on Primary Calendar: \'%s\'' % (q))
     query = GServ.CalendarEventQuery(calendar, 'private', 'full', q)
     query.start_min = date       #  calling date to set the beginning of query range for the present day
     query.start_max = endDate    #  calling endDate to limit the query range to the next 14 days. change tmedelta(days) to set the range
@@ -52,20 +52,20 @@ def FullTextQuery(calendar_service):
     feed = calendar_service.CalendarQuery(query)
     for i, an_event in enumerate(feed.entry):
         for a_when in an_event.when:
-            print " "
+            print (" ")
             print an_event.title.text ,"Scheduled:",i,"For:",time.strftime('%d-%m-%Y %H:%M',time.localtime(tf_from_timestamp(a_when.start_time))),"Current Time:",time.strftime('%d-%m-%Y %H:%M')
             if time.strftime('%d-%m-%Y %H:%M',time.localtime(tf_from_timestamp(a_when.start_time))) == time.strftime('%d-%m-%Y %H:%M'):
-                print "Waking you up!"
-                print "---" 
+                print ("Waking you up!")
+                print ("---") 
                 songfile = random.choice(os.listdir(mp3_path)) #  choosing by random an .mp3 file from direcotry
-                print "Now Playing:", songfile
+                print ("Now Playing:"), songfile
                                                                #  plays the MP3 in it's entierty. As long as the file is longer 
                                                                #  than a minute it will only be played once:
                 command ="mpg321" + " " + mp3_path + "'"+songfile+"'"+ " -g 100" 
                 print command
                 os.system(command)                             #  plays the song
             else:
-                print "Wait for it..."                         #  the event's start time is not the system's current time
+                print ("Wait for it...")                         #  the event's start time is not the system's current time
  
 #************************************************************************************# 
 #****           Function to be run by Scheduler                                  ****#
@@ -73,9 +73,9 @@ def FullTextQuery(calendar_service):
 #************************************************************************************# 
 def callable_func():
     os.system("clear")
-    print "----------------------------"
+    print ("----------------------------")
     FullTextQuery(calendar_service)
-    print "----------------------------"
+    print ("----------------------------")
 
 #************************************************************************************# 
 #****           Run scheduler service                                            ****#
